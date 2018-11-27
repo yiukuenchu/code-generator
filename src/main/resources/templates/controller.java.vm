@@ -1,0 +1,126 @@
+package ${package.parent}.rest.controller;
+
+import java.util.*;
+
+
+import com.yiukuenchu.demo.enums.DeleteStatus;
+import ${package.DTO}.${table.entityName}DTO;
+import ${package.Service}.${table.entityName}Service;
+import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.yiukuenchu.demo.util.IdWorker;
+import io.swagger.annotations.*;
+import ${package.parent}.rest.controller.base.BaseController;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+/**
+ * $!{table.comment}
+ * 代码生成器出品,模板不代表正确，请酌情修改
+ * @author ${author}
+ * @since ${date}
+ */
+@RestController
+@Api(value = "", description = "")
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/${table.entityPath}")
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+	/** 记录日志 */
+	private static final Logger logger = LoggerFactory.getLogger(${table.controllerName}.class);
+
+	@Autowired
+	private ${table.entityName}Service ${table.entityLowerCaseName}Service;
+
+
+	/**
+	 * 查询列表
+	 */
+	@ApiOperation(value = "查询列表")
+    @RequestMapping("query")
+	public Object query(${table.entityName}DTO dto,
+						@RequestParam(defaultValue = "1") Integer page ,
+						@RequestParam(defaultValue = "10")Integer size) throws Exception {
+        CommonPageDTO commonPageDTO = new CommonPageDTO(page,size);
+        dto.setCommonPageDTO(commonPageDTO);
+		CommonPageDTO pageDTO = ${table.entityLowerCaseName}Service.findPage(dto);
+		return renderSuccess(pageDTO);
+	}
+
+
+	/**
+	 * 更新数据
+	 */
+	@ApiOperation(value = "更新")
+    @RequestMapping(value ="/update",method = RequestMethod.POST)
+	public Object update(${table.entityName}DTO dto) throws Exception {
+        Assert.isNotBlank(dto.getId(), "");
+        dto.setUpdateTime(new Date());
+        dto.setDeleteStatus(DeleteStatus.ACTIVE.getCode());
+		return ${table.entityLowerCaseName}Service.update(dto) ==1 ?renderSuccess():renderError();
+	}
+
+
+
+	/**
+	 * 新增数据
+	 */
+	@ApiOperation(value = "新增")
+    @RequestMapping(value ="/add",method = RequestMethod.POST)
+	public Object add(${table.entityName}DTO dto) throws Exception {
+        dto.setId(IdWorker.nextId());
+        dto.setCreateTime(new Date());
+        dto.setUpdateTime(new Date());
+		return ${table.entityLowerCaseName}Service.insert(dto) == 1?renderSuccess():renderError();
+	}
+
+	/**
+	 * 根据id查看数据
+	 *
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "查看数据")
+    @RequestMapping(value ="/detail")
+	public Object view(String id) throws Exception {
+        Assert.isNotBlank(id,id);
+		${table.entityName}DTO dto = ${table.entityLowerCaseName}Service.getById(id);
+		return renderSuccess(dto);
+	}
+
+	/**
+	 * 根据id删除数据
+	 *
+	 * @param id
+	 * @return
+	 */
+	@ApiOperation(value = "删除数据", notes = "删除数据")
+    @RequestMapping(value ="/delete",method = RequestMethod.POST)
+	public Object delete(String id) throws Exception {
+        Assert.isNotBlank(id,id);
+		return ${table.entityLowerCaseName}Service.deleteById(id) == 1?renderSuccess():renderError();
+	}
+
+	/**
+	* 批量删除数据
+	*
+	* @param ids
+	* @return
+	*/
+	@ApiOperation(value = "删除数据")
+    @RequestMapping(value ="/delete-batch",method = RequestMethod.POST)
+	public Object deleteBatch(String ids) throws Exception {
+		Assert.isNotBlank(ids,ids);
+		List<String> list = Arrays.asList(ids.split(","));
+		${table.entityLowerCaseName}Service.deleteBatch(list);
+		return renderSuccess();
+	}
+}
+
+

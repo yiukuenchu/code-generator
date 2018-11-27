@@ -1,0 +1,15 @@
+package ${package.DTO};
+
+import io.swagger.annotations.ApiModel;
+import ${package.Entity}.${entity};
+/**
+ * 代码生成器出品,模板不代表正确，请酌情修改
+ * 
+ * @author ${author}
+ * @since ${date}
+ *
+ */
+@ApiModel(description="$!{table.comment}")
+public class ${entity}DTO extends ${entity} {
+	
+}

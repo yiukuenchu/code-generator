@@ -1,0 +1,61 @@
+import { fetch } from '../utils/fetch';
+
+/**
+ * 获取${table.entityName}列表
+ * @param query
+ */
+export function get${table.entityName}List(query) {
+    return fetch({
+        url: `${process.env.API.pms}/${table.entityPath}/query`,
+        method: 'get',
+        params: query,
+    });
+}
+
+/**
+ * 插入${table.entityName}
+ * @param ${table.entityPath}
+ */
+export function insert${table.entityName}(${table.entityPath}) {
+    return fetch({
+        url: `${process.env.API.pms}/${table.entityPath}/add`,
+        method: 'post',
+        params: ${table.entityPath},
+    });
+}
+
+/**
+ * 删除${table.entityName}
+ * @param id
+ */
+export function delete${table.entityName}(id) {
+    return fetch({
+        url: `${process.env.API.pms}/${table.entityPath}/delete`,
+        method: 'post',
+        params: id,
+    });
+}
+
+/**
+ * 获取${table.entityName}
+ * @param id
+ */
+export function get${table.entityName}(id) {
+    return fetch({
+        url: `${process.env.API.pms}/${table.entityPath}/detail`,
+        method: 'get',
+        params: id,
+    });
+}
+
+/**
+ * 更新${table.entityName}
+ * @param ${table.entityPath}
+ */
+export function update${table.entityName}(${table.entityPath}) {
+    return fetch({
+        url: `${process.env.API.pms}/${table.entityPath}/update`,
+        method: 'post',
+        params: ${table.entityPath},
+    });
+}

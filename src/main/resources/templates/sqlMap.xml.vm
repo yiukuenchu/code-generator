@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yiukuenchu.demo.dao.${table.entityName}Mapper">
+    <resultMap id="BaseResultMap" type="com.yiukuenchu.demo.pojo.dto.${table.entityName}DTO">
+        ${baseResultMapSql}
+    </resultMap>
+
+    <sql id="Base_Column_List">
+		${baseResultSql}
+	</sql>
+
+    <insert id="insert" parameterType="com.yiukuenchu.demo.pojo.dto.${table.entityName}DTO">
+		${insertSql}
+	</insert>
+
+    <update id="update" parameterType="com.yiukuenchu.demo.pojo.dto.${table.entityName}DTO">
+		${updateSql}
+	</update>
+
+    <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		${getByIdSql}
+	</select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+		${deleteSql}
+	</delete>
+
+    <delete id="batchDelete" parameterType="java.util.List">
+		${batchDeleteSql}
+    </delete>
+
+    <sql id="Entity_Where_Clause">
+		${entityWhereClauseSql}
+	</sql>
+
+
+    <select id="findList" resultMap="BaseResultMap">
+		${getListSql}
+	</select>
+
+</mapper>
+

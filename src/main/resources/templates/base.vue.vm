@@ -1,0 +1,245 @@
+<template>
+    <div class="layout">
+        <div class="search-bar run-search-bar" style="background:none;">
+            <div class="handle-bar">
+                <Button size="small" type="warning" icon="search">搜索</Button>
+                <Button size="small" type="info" icon="loop">重置</Button>
+            </div>
+            <div class="table-bar">
+                <Form :model="table.form" ref="vsForm" label-position="top" class="ivu-form-no-margin-bottom" inline>
+                    <Form-item prop="vsCode" label="值集代码">
+                        <Input type="text" v-model="table.form.vsCode" placeholder="值集名称"/>
+                    </Form-item>
+                    <Form-item prop="vsName" label="值集名称">
+                        <Input type="text" v-model="table.form.vsName" placeholder="值集名称"/>
+                    </Form-item>
+                </Form>
+            </div>
+        </div>
+        <div class="single-table-con">
+            <div class="table-bar">
+                <Button size="small" type="ghost" icon="plus-round" @click="add()">新增</Button>
+            </div>
+            <Table ref="selection" :loading="table.loading" :columns="table.columns" :data="table.data"></Table>
+        </div>
+        <Modal v-model="form.visible" :title="form.title">
+            <p slot="header">
+                <span>${table.comment}</span>
+            </p>
+            <div>
+                <Form ref="form" :model="form.data" :rules="form.rules" :label-width="form.labelWidth">
+                    #foreach($field in ${table.fields})
+                        <FormItem label="${field.comment}" prop="${field.propertyName}">
+                            <Input type="text" v-model="form.data.${field.propertyName}"/>
+                        </FormItem>
+                    #end
+                </Form>
+            </div>
+            <div slot="footer">
+                <Button type="primary" @click="save()">提交</Button>
+                <Button type="ghost" @click="form.visible = false" style="margin-left: 8px">取消</Button>
+            </div>
+        </Modal>
+    </div>
+</template>
+<script>
+    import {
+        delete${table.entityName},
+        get${table.entityName},
+        get${table.entityName}List,
+        insert${table.entityName},
+        update${table.entityName}
+    } from '@/api/${table.entityPath}';
+
+    /**
+     * 编辑故障事件分类
+     * @param id
+     */
+    function edit(id) {
+        get${table.entityName}({id: id}).then((response) => {
+            #foreach($field in ${table.fields})
+                this.form.data.${field.propertyName} = response.dataResult.${field.propertyName};
+            #end
+            this.form.visible = true;
+        });
+    }
+
+    /**
+     * 新增故障事件分类
+     */
+    function add() {
+        #foreach($field in ${table.fields})
+            this.form.data.${field.propertyName} = '';
+        #end
+        this.form.visible = true;
+    }
+
+    /**
+     * 获取故障事件分类列表
+     */
+    function list() {
+        this.table.loading = true;
+        get${table.entityName}List().then((response) => {
+            this.table.data = response.dataResult.recordList;
+            this.table.loading = false;
+        });
+    }
+
+    /**
+     * 保存故障事件分类
+     */
+    function save() {
+        this.#[[$]]#refs.form.validate((valid) => {
+            if (valid) {
+                if (!this.form.data.${table.propertyKeyName}) {
+                    insert${table.entityName}(this.form.data).then((response) => {
+                        const data = response.data;
+                        this.#[[$]]#Message.success({
+                            content: '保存成功!',
+                            closable: true
+                        });
+                        this.form.visible = false;
+                        this.list();
+                    });
+                } else {
+                    update${table.entityName}(this.form.data).then((response) => {
+                        const data = response.data;
+                        this.#[[$]]#Message.success({
+                            content: '保存成功!',
+                            closable: true
+                        });
+                        this.form.visible = false;
+                        this.list();
+                    });
+                 }
+                 return true;
+             } else {
+                this.#[[$]]#Message.error({
+                    content: '错误!',
+                    duration: 10,
+                    closable: true
+                });
+                return false;
+            }
+        });
+    }
+
+    /**
+     * 删除故障事件分类
+     * @param id
+     */
+    function remove(id) {
+        this.#[[$]]#Modal.confirm({
+            title: '确认删除',
+            content: '你确定要删除此记录？',
+            onOk: () => {
+                delete${table.entityName}({ id: id }).then((response) => {
+                    if (response.statusCode === '0') {
+                        this.#[[$]]#Message.success('删除成功!');
+                        this.list();
+                    } else {
+                        this.#[[$]]#Message.error('删除错误!');
+                    }
+                });
+            },
+            onCancel: () => {
+                this.#[[$]]#Message.info('取消');
+            }
+        });
+
+    }
+
+    export default {
+        data() {
+            return {
+                table: {
+                    loading: false,
+                    data: [],
+                    form: {
+                        vsCode: '',
+                        vsName: '',
+                    },
+                    columns: [
+                        {
+                            title: '操作',
+                            key: 'action',
+                            width: 120,
+                            render: (h, params) => {
+                                return h('div', [
+                                    h('Button', {
+                                        props: {
+                                            type: 'text',
+                                            size: 'small',
+                                            icon: "minus-round",
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.remove(params.row.${table.propertyKeyName})
+                                            }
+                                        }
+                                    },)
+                                ]);
+                            }
+                        },
+                        #foreach($field in ${table.fields})
+                            #if(${field.keyFlag})
+                                {
+                                    title: '${field.comment}',
+                                    render: (h, params) => {
+                                        return h('div', [
+                                            h('Button', {
+                                                props: {
+                                                    type: 'text',
+                                                    size: 'small',
+                                                },
+                                                on: {
+                                                    click: () => {
+                                                        this.edit(params.row.${table.propertyKeyName})
+                                                    }
+                                                }
+                                            }, params.row.${table.propertyKeyName})
+                                        ]);
+                                    }
+                                },
+                            #elseif(${field.convert})
+                                {
+                                    title: '${field.comment}',
+                                    key: '${field.propertyName}'
+                                },
+                            #end
+                        #end
+                    ],
+                },
+                form: {
+                    visible: false,
+                    title: '${table.comment}',
+                    labelWidth: 120,
+                    data: {
+                        #foreach($field in ${table.fields})
+                            ${field.propertyName}: '',
+                        #end
+                    },
+                    rules: {
+                        #foreach($field in ${table.fields})
+                            ${field.propertyName}: [
+                                {required: true, message: '请输入${field.comment}', trigger: 'blur'}
+                            ],
+                        #end
+                    }
+                },
+            }
+        },
+        created() {
+            this.list();
+        },
+        methods: {
+            list,
+            edit,
+            save,
+            remove,
+            add,
+        }
+    };
+</script>
+<style lang="less">
+</style>

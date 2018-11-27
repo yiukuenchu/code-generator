@@ -1,0 +1,13 @@
+package ${package.Service};
+
+import ${superServiceClassPackage};
+import ${package.DTO}.${entity}DTO;
+
+/**
+ * $!{table.comment} 服务类
+ * 代码生成器出品,模板不代表正确，请酌情修改
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${entity}Service extends BaseService<${entity}DTO> {
+}

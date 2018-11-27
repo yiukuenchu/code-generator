@@ -1,0 +1,72 @@
+package ${package.ServiceImpl};
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import ${package.DTO}.${entity}DTO;
+import ${package.Entity}.${entity};
+import ${package.Service}.${entity}Service;
+import ${package.Mapper}.${entity}Mapper;
+import org.springframework.stereotype.Service;
+
+/**
+ * 代码生成器出品,模板不代表正确，请酌情修改
+ * 
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${entity}ServiceImpl implements ${entity}Service {
+
+	@Autowired
+	private ${entity}Mapper ${table.entityLowerCaseName}Mapper;
+
+	@Override
+	public ${entity}DTO getById(String id) {
+		return ${table.entityLowerCaseName}Mapper.getById(id);
+	}
+
+	@Override
+	public int insert(${entity}DTO t) {
+		return ${table.entityLowerCaseName}Mapper.insert(t);
+	}
+
+	@Override
+	public int deleteById(String id) {
+		return ${table.entityLowerCaseName}Mapper.deleteById(id);
+	}
+
+	@Override
+	public int deleteBatch(List<String> list) {
+		return ${table.entityLowerCaseName}Mapper.deleteBatch(list);
+	}
+
+	@Override
+	public int update(${entity}DTO t) {
+		return ${table.entityLowerCaseName}Mapper.update(t);
+	}
+
+    @Override
+    public int getTotal(${entity}DTO t) throws Exception {
+        return 0;
+    }
+
+	@Override
+	public CommonPageDTO findPage(${entity}DTO t) {
+		CommonPageDTO commonPage=t.getCommonPageDTO();
+		Page<?> page=PageHelper.startPage(commonPage.getCurrentPage(), commonPage.getPageSize());
+		commonPage.setRecordList(this.findList(t));
+		commonPage.initiatePage(page.getTotal());
+		return commonPage;
+	}
+
+	@Override
+	public List<${entity}DTO> findList(${entity}DTO t) {
+		return ${table.entityLowerCaseName}Mapper.findList(t);
+	}
+	
+}

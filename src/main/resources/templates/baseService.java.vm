@@ -1,0 +1,85 @@
+package ${package.Service};
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 代码生成器出品,模板不代表正确，请酌情修改
+ * 
+ * @author ${author}
+ * @since ${date}
+ *
+ */
+public interface BaseService<T> {
+	/**
+	 * 根据ID查询对象
+	 * 
+	 * @param id
+	 * @return DTO
+	 * 
+	 */
+	public T getById(String id) throws Exception;
+	
+	/**
+	 * 保存
+	 * 
+	 * @param dto
+	 * @return
+	 * @throws Exception
+	 */
+	public int insert(T t) throws Exception;
+
+	/**
+	 * 根据ID删除对象
+	 * 
+	 * @param id
+	 * @return 影响条数
+	 * 
+	 */
+	public int deleteById(String id) throws Exception;
+
+	/**
+	 * 根据ID集合批量删除对象
+	 * 
+	 * @param list
+	 * @return 影响条数
+	 * 
+	 */
+	public int deleteBatch(List<String> list) throws Exception;
+	
+	/**
+	 * 修改
+	 * 
+	 * @param t
+	 * @return
+	 * @throws Exception
+	 */
+	public int update(T t) throws Exception;
+	
+	/**
+	 * 查询记录数
+	 * 
+	 * @param T
+	 * @return 记录数
+	 * 
+	 */
+	public int getTotal(T t) throws Exception;
+	
+		/**
+	 * 根据条件查询list(分页查询)
+	 * 
+	 * @param T
+	 * @return
+	 * @throws Exception
+	 */
+	public CommonPageDTO findPage(T t) throws Exception;
+	
+		/**
+	 * 根据条件查询list(不分页查询)
+	 * 
+	 * @param T
+	 * @return List<DTO>
+	 */
+	public List<T> findList(T t) throws Exception;
+	
+}

@@ -1,0 +1,7 @@
+package ${package.Mapper};
+
+import ${package.Mapper}.base.BaseMapper;
+import ${package.DTO}.${entity}DTO;
+
+public interface ${entity}Mapper extends BaseMapper<${entity}DTO> {
+}
