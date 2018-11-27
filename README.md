@@ -1,2 +1,2 @@
 # code-generator
-dao层代码自动补全
+DAO层代码生成器
