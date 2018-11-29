@@ -14,10 +14,10 @@
 
 1.在src/main/resources/generator-config/application.properties里面，设置链接的数据库配置
 ```
-db.url=jdbc:mysql://xx.xx.xx.xx:yyyy/zzzz  /* 这里填写连接的数据库的url */
-db.user=yiukuenchu   /* 填写用户名 */
-db.password=xxxxxx    /* 这里填写连接数据库的密码 */
-db.jdbc.driver=com.mysql.jdbc.Driver  /* 这里若是mysql则不用修改*/
+db.url=jdbc:mysql://xx.xx.xx.xx:yyyy/zzzz  /*这里填写连接的数据库的url*/
+db.user=yiukuenchu   /*填写用户名*/
+db.password=xxxxxx    /*这里填写连接数据库的密码*/
+db.jdbc.driver=com.mysql.jdbc.Driver  /*这里若是mysql则不用修改*/
 ```
 
 2.在src/main/java/main/MamsGenerator.java里面，设置实体父类。
@@ -46,8 +46,8 @@ db.jdbc.driver=com.mysql.jdbc.Driver  /* 这里若是mysql则不用修改*/
 ```
 1. 把整个项目下载至你的本地。  
 2. 把项目Import进IDE。  
-3. 运行src/main/java/main/MamsGenerator.java，稍等几秒，将会生成**generated**文件夹在根目录下，并且将自动打开文件夹。   
-4. 所生成DAO层，Service层，Controller层代码全部放在**generated**文件夹中。  
+3. 运行src/main/java/main/MamsGenerator.java，稍等几秒，将会生成 **generated** 文件夹在根目录下，并且将自动打开文件夹。   
+4. 所生成DAO层，Service层，Controller层代码全部放在 **generated** 文件夹中。  
 ```
   
 ⚠️如之前进行过上述操作，在更改数据库表内容后，想重新生成代码：
