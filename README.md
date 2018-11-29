@@ -7,6 +7,8 @@
 ## 🍪效果图
 
 ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fxp27hzfn0g30ne0e7nni.gif)
+
+*▲ code-generator  - How it works.* 
   
 ## 🏀Build Setup
 
