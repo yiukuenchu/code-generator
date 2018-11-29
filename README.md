@@ -10,7 +10,15 @@
   
 ## Build Setup
 
-1.在src/main/java/main/MamsGenerator 里面，设置实体父类。
+1.在src/main/resources/generator-config/application.properties里面，设置链接的数据库配置
+```
+db.url=jdbc:mysql://xx.xx.xx.xx:yyyy/zzzz  /* 这里填写连接的数据库的url */
+db.user=yiukuenchu   /* 填写用户名 */
+db.password=xxxxxx    /* 这里填写连接数据库的密码 */
+db.jdbc.driver=com.mysql.jdbc.Driver  /* 这里若是mysql则不用修改*/
+```
+
+2.在src/main/java/main/MamsGenerator里面，设置实体父类。
 ```
 // 自定义实体父类
    strategy.setSuperEntityClass("com.yiukuen.demo.entity.BaseEntity");
