@@ -44,8 +44,8 @@ db.jdbc.driver=com.mysql.jdbc.Driver  /* 这里若是mysql则不用修改*/
   
 1. 把整个项目下载至你的本地。  
 2. 把项目Import进IDE。  
-3. 运行src/main/java/main/MamsGenerator.java，稍等几秒，将生成***generated***文件夹在根目录下，并且将自动打开文件夹。   
-4. 所生成DAO层，Service层，Controller层代码全部放在***generated***文件夹中。  
+3. 运行src/main/java/main/MamsGenerator.java，稍等几秒，将会生成 ***generated***文件夹在根目录下，并且将自动打开文件夹。   
+4. 所生成DAO层，Service层，Controller层代码全部放在 ***generated***文件夹中。  
    
 ⚠️如之前进行过上述操作，在更改数据库表内容后，想重新生成代码：
   
