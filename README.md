@@ -8,7 +8,7 @@
 
 ![](https://ws4.sinaimg.cn/large/006tNbRwgy1fxp27hzfn0g30ne0e7nni.gif)
   
-## Build Setup
+## 🏀Build Setup
 
 1.在src/main/resources/generator-config/application.properties里面，设置链接的数据库配置
 ```
@@ -37,21 +37,17 @@ db.jdbc.driver=com.mysql.jdbc.Driver  /* 这里若是mysql则不用修改*/
 3.根据实际修改pom.xml文件中<parent></parent>。**一般情况下无需修改其他依赖**。
   
 ## 🐱Usage
+
 **‼️进行如下操作前，请确保配置文件连接数据库正确‼️**  
+   
 ⚠️如果是第一次进行操作：
-  
 1.把整个项目下载至你的本地。  
-  
 2.把项目Import进IDE。  
-  
-3.运行src/main/java/main/MamsGenerator.java，稍等几秒，将生成***generated***文件夹在根目录下，并且将自动打开文件夹。
-  
+3.运行src/main/java/main/MamsGenerator.java，稍等几秒，将生成***generated***文件夹在根目录下，并且将自动打开文件夹。 
 4.所生成DAO层，Service层，Controller层代码全部放在***generated***文件夹中。
   
-⚠️如之前进行过上述操作，在更改数据库表内容后，想重新生成代码：  
-  
+⚠️如之前进行过上述操作，在更改数据库表内容后，想重新生成代码：    
 1.请首先把根目录下生成的generated文件夹删除。
-  
 2.执行同样操作生成代码即可。
 
   
